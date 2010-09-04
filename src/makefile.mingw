@@ -1,0 +1,54 @@
+CXX = g++
+CXXFLAGS = -Wall -mwindows freeglut.lib -lopengl32 -lglu32
+
+PROGRAM = raytracer
+PROGRAMSRC = Raytracer.cc
+OBJS = Vector3f.o Matrix44f.o Material.o primitives/Primitive.o primitives/Sphere.o primitives/Plane.o scenemanager/SceneManager.o scenemanager/BasicSceneManager.o
+
+all : $(PROGRAM)
+
+clean :
+	del Vector3f.o
+	del Material.o
+	del primitives\Primitive.o
+	del primitives\Sphere.o
+	del primitives\Plane.o
+	del scenemanager\SceneManager.o
+	del scenemanager\BasicSceneManager.o
+	del raytracer.exe
+
+$(PROGRAM) : $(PROGRAMSRC) $(OBJS)
+	$(CXX) -o $(PROGRAM) -Wall $(PROGRAMSRC) -mwindows freeglut.lib -lopengl32 -lglu32 $(OBJS)
+
+cppunit/Vector3fTest.o : cppunit/Vector3fTest.cc cppunit/Vector3fTest.hh
+	$(CXX) -c cppunit/Vector3fTest.cc -o cppunit/Vector3fTest.o
+
+cppunit/SphereTest.o : cppunit/SphereTest.cc cppunit/SphereTest.hh
+	$(CXX) -c cppunit/SphereTest.cc -o cppunit/SphereTest.o	
+
+cppunit/PlaneTest.o : cppunit/PlaneTest.cc cppunit/PlaneTest.hh	
+	$(CXX) -c cppunit/PlaneTest.cc -o cppunit/PlaneTest.o	
+
+primitives/Primitive.o : primitives/Primitive.cc primitives/Primitive.hh
+	$(CXX) -c primitives/Primitive.cc -o primitives/Primitive.o
+
+primitives/Sphere.o : primitives/Sphere.cc primitives/Sphere.hh	
+	$(CXX) -c primitives/Sphere.cc -o primitives/Sphere.o
+
+primitives/Plane.o : primitives/Plane.cc primitives/Plane.hh	
+	$(CXX) -c primitives/Plane.cc -o primitives/Plane.o
+
+scenemanager/SceneManager.o : scenemanager/SceneManager.cc scenemanager/SceneManager.hh	
+	$(CXX) -c scenemanager/SceneManager.cc -o scenemanager/SceneManager.o
+
+scenemanager/BasicSceneManager.o : scenemanager/BasicSceneManager.cc scenemanager/BasicSceneManager.hh	
+	$(CXX) -c scenemanager/BasicSceneManager.cc -o scenemanager/BasicSceneManager.o
+
+Material.o : Material.cc Material.hh
+	$(CXX) -c Material.cc	
+
+Vector3f.o : Vector3f.cc Vector3f.hh
+	$(CXX) -c Vector3f.cc
+
+Matrix44f.o : Matrix44f.cc Matrix44f.hh
+	$(CXX) -c Matrix44f.cc
