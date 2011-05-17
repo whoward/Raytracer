@@ -1,5 +1,5 @@
 /*
- * Primitive.cc
+ * Raytracer.cc
  *
  *  Created on: 24-Jan-2009
  *      Author: will
