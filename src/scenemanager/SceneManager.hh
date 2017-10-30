@@ -51,6 +51,18 @@ class SceneManager
 		void setRaytraceDepth(int depth);
 		int getRaytraceDepth();
 
+		void setDiffuseEnabled(int enabled);
+		int getDiffuseEnabled();
+
+		void setSpecularEnabled(int enabled);
+		int getSpecularEnabled();
+
+		void setReflectionEnabled(int enabled);
+		int getReflectionEnabled();
+
+		void setAmbientEnabled(int enabled);
+		int getAmbientEnabled();
+
 	private:
 		Vector3f	eyepos;
 		Vector3f	eyetarget;
@@ -58,6 +70,11 @@ class SceneManager
 
 		float		rtdist;
 		int			rtdepth;
+
+		int specularEnabled;
+		int diffuseEnabled;
+		int reflectionEnabled;
+		int ambientEnabled;
 };
 
 

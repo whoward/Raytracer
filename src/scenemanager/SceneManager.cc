@@ -18,6 +18,10 @@ SceneManager::SceneManager( const Vector3f& eyepos, const Vector3f& eyetarget) {
 	this->eyetarget = eyetarget;
 	this->rtdepth = -1;
 	this->rtdist = -1;
+	this->ambientEnabled = 1;
+	this->specularEnabled = 1;
+	this->diffuseEnabled = 1;
+	this->reflectionEnabled = 1;
 }
 
 SceneManager::~SceneManager() {
@@ -62,4 +66,36 @@ void SceneManager::setRaytraceDepth(int depth) {
 }
  int SceneManager::getRaytraceDepth() {
 	return this->rtdepth;
+}
+
+void SceneManager::setDiffuseEnabled(int enabled) {
+	this->diffuseEnabled = enabled;
+}
+
+int SceneManager::getDiffuseEnabled() {
+	return this->diffuseEnabled;
+}
+
+void SceneManager::setSpecularEnabled(int enabled) {
+	this->specularEnabled = enabled;
+}
+
+int SceneManager::getSpecularEnabled() {
+	return this->specularEnabled;
+}
+
+void SceneManager::setReflectionEnabled(int enabled) {
+	this->reflectionEnabled = enabled;
+}
+
+int SceneManager::getReflectionEnabled() {
+	return this->reflectionEnabled;
+}
+
+void SceneManager::setAmbientEnabled(int enabled) {
+	this->ambientEnabled = enabled;
+}
+
+int SceneManager::getAmbientEnabled() {
+	return this->ambientEnabled;
 }

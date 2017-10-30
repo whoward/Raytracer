@@ -148,6 +148,30 @@ void modifyPixelSize(int delta) {
 	cout << "updated pixel size: " << pix_sz << endl;
 }
 
+void toggleSpecular() {
+	int next = !scene->getSpecularEnabled();
+	scene->setSpecularEnabled(next);
+	cout << "toggle specular lighting: " << (next == 0 ? "disabled" : "enabled") << endl;
+}
+
+void toggleDiffuse() {
+	int next = !scene->getDiffuseEnabled();
+	scene->setDiffuseEnabled(next);
+	cout << "toggle diffuse lighting: " << (next == 0 ? "disabled" : "enabled") << endl;
+}
+
+void toggleReflection() {
+	int next = !scene->getReflectionEnabled();
+	scene->setReflectionEnabled(next);
+	cout << "toggle reflections: " << (next == 0 ? "disabled" : "enabled") << endl;
+}
+
+void toggleAmbient() {
+	int next = !scene->getAmbientEnabled();
+	scene->setAmbientEnabled(next);
+	cout << "toggle ambient: " << (next == 0 ? "disabled" : "enabled") << endl;
+}
+
 /**
  * Called when a key is pressed
  */
@@ -172,6 +196,14 @@ void keyhandler(unsigned char key, int x, int y) {
 		modifyRaytraceDepth(-1);
 	else if(key == ']')
 		modifyRaytraceDepth(1);
+	else if(key == '1')
+		toggleReflection();
+	else if(key == '2')
+		toggleAmbient();
+	else if(key == '3')
+		toggleDiffuse();
+	else if(key == '4')
+		toggleSpecular();
 
 	glutPostRedisplay();
 }

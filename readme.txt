@@ -8,10 +8,10 @@ This project was a complete redo from scratch of an assignment
 completed for my 3rd year computer science course titled "Scientific
 Visualization and Computer Graphics" which basically required us to
 create a somewhat complicated raytracer from scratch (everything but
-drawing the pixels, which we used glut for).  
+drawing the pixels, which we used glut for).
 
-The reason I redid this assignment was because I utterly failed at it 
-the first time (as did most the class) and because I felt I needed more 
+The reason I redid this assignment was because I utterly failed at it
+the first time (as did most the class) and because I felt I needed more
 experience developing with C++ (we focused mostly on Java through my
 whole undergraduate time).
 
@@ -19,14 +19,14 @@ The raytracer includes the following features:
 	Plane and Sphere primitives!
 	Phong shading! (ambient, diffuse, specular highlighting)
 	Specular Reflection!
-	
+
 For now the scene is static, composed of 6 spheres and one plane.  The
 plane is black, 100% reflective, and is parallel to the XY plane.  The
 six spheres are:
 	the origin (yellow)
 	the three primary axes X,Y, and Z (red, green and blue)
 	two white lights
-	
+
 If any future work is done on this project it will likely include:
 	XML based scene loading (maybe using the tinyxml library)
 	Soft shadows
@@ -54,6 +54,11 @@ have full 360 deg rotation about the Z axis.  The controls are:
 	[ : decrease raytrace depth (min: 0)
 	] : increase raytrace depth (max: 10)
 
+	1: toggle reflections
+	2: toggle ambient lighting
+	3: toggle diffuse lighting
+	4: toggle specular lighting
+
 Installation
 ==================
 I don't concern myself with installing it in a friendly location on
@@ -62,7 +67,7 @@ sufficient for now.  Two makefiles are provided for Linux (tested
 on Ubuntu Linux Intrepid Ibex) and Mingw32 (tested on Windows XP Home).
 These makefiles are makefile.linux and makefile.mingw respectively.
 
-To build on Linux make sure you have at least freeglut3-dev and 
+To build on Linux make sure you have at least freeglut3-dev and
 libcppunit-dev installed.  Since I never got cppunit working for
 mingw I haven't bothered including the unit tests in the build.
 
@@ -85,17 +90,17 @@ as gpl-3.0.txt
 Libraries
 ==================
 	freeglut 3 (http://freeglut.sourceforge.net/)
-		OpenGL + freeglut is used as the frontend of the program so 
+		OpenGL + freeglut is used as the frontend of the program so
 		that I don't have to know and write code for the Win32,	X11
 		and OpenGL APIs.  Really all this does is just open a
 		drawing window and paint pixels on it based on the result of
 		the raytracing.  It also handles keyboard interaction.
-		
+
 		A precompiled freeglut.dll is included in the Windows binary
 		folder alongside the precompiled exe file.  Linux users
-		shouldn't have a problem installing proper shared object 
+		shouldn't have a problem installing proper shared object
 		libraries for freeglut so I haven't included them (and I don't
 		intend to contribute to Linux DLL HELL).
-		
+
 	cppunit (http://cppunit.sourceforge.net/)
-		I never actually got this working with mingw32 
+		I never actually got this working with mingw32

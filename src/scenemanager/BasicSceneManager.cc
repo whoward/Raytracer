@@ -79,14 +79,18 @@ Vector3f BasicSceneManager::raycolour( Vector3f& point,  Vector3f& direction, in
 	if(intersected->isLight() == true)
 		return pointMat.getColour();
 
-	// Get the ambient colour of this point
-	Vector3f color = pointMat.getColour() * pointMat.getAmbient();
+	// Start with the color of the material
+	Vector3f color = pointMat.getColour();
+
+	// If ambient lighting is enabled then multiply the vector by the ambient amount
+	if(this->getAmbientEnabled())
+		color *= pointMat.getAmbient();
 
 	// Calculate the normal vector at the intersection point
 	Vector3f normalvec = intersected->getNormal(intersection->point);
 
 	// If the material is reflective bounce out a ray for reflection and add it to the ambient colour
-	if(pointMat.getReflection() > 0.0f) {
+	if(pointMat.getReflection() > 0.0f && this->getReflectionEnabled()) {
 		float reflection = pointMat.getReflection();
 
 		// Calculate the ray of reflection
@@ -118,7 +122,7 @@ Vector3f BasicSceneManager::raycolour( Vector3f& point,  Vector3f& direction, in
 			continue;
 
 		// If diffuse lighting is to be used calculate it and add it
-		if(pointMat.getDiffuse() > 0.0f) {
+		if(pointMat.getDiffuse() > 0.0f && this->getDiffuseEnabled()) {
 			float dot = normalvec.dotproduct(lightvec);
 			if(dot > 0) {
 				float diff = dot * pointMat.getDiffuse();
@@ -127,7 +131,7 @@ Vector3f BasicSceneManager::raycolour( Vector3f& point,  Vector3f& direction, in
 		}
 
 		// If specular lighting is to be used calculate it and add it
-		if(pointMat.getSpecular() > 0.0f) {
+		if(pointMat.getSpecular() > 0.0f && this->getSpecularEnabled()) {
 			float shininess = pointMat.getPhongExponent();
 			float specular = pointMat.getSpecular();
 
