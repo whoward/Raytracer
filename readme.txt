@@ -51,6 +51,9 @@ have full 360 deg rotation about the Z axis.  The controls are:
 	+ : increase pixel multiplication (speeds up raytracing GREATLY)
 	- : decrease pixel multiplication (higher quality image but slower)
 
+	[ : decrease raytrace depth (min: 0)
+	] : increase raytrace depth (max: 10)
+
 Installation
 ==================
 I don't concern myself with installing it in a friendly location on

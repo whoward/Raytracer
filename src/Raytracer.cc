@@ -29,6 +29,9 @@ using namespace std;
 #define CAM_DIST_MIN 0.2					//minimum distance between the target and camera in GL Units
 #define CAM_MAXANGLE_YZ 80					//maximum angle on the YZ plane in degrees
 
+#define TRACE_DEPTH_MIN 0
+#define TRACE_DEPTH_MAX 10
+
 // values to store camera details
 GLfloat cam_angle[2]  =	{-45.0f, 45.0f};	//The camera's angle on the XY and YZ planes respectively
 GLfloat cam_dist 	  =	5.0f;				//The camera's distance to its target vector
@@ -38,6 +41,9 @@ int window = 0;
 
 /** pixel size multiplier */
 int pix_sz = 1;
+
+/** raytrace depth */
+int traceDepth = 5;
 
 /** direction of the up vector */
 Vector3f up(0.0f, 0.0f, -1.0f);
@@ -131,6 +137,17 @@ void display() {
 	}
 }
 
+void modifyRaytraceDepth(int delta) {
+	traceDepth = clamp ( traceDepth + delta, TRACE_DEPTH_MIN, TRACE_DEPTH_MAX );
+	scene->setRaytraceDepth(traceDepth);
+	cout << "updated raytrace depth: " << traceDepth << endl;
+}
+
+void modifyPixelSize(int delta) {
+	pix_sz = max( pix_sz + delta, 1 );
+	cout << "updated pixel size: " << pix_sz << endl;
+}
+
 /**
  * Called when a key is pressed
  */
@@ -148,9 +165,13 @@ void keyhandler(unsigned char key, int x, int y) {
 	else if(key == 'f')
 		cam_dist = clamp( cam_dist+CAM_SPEED, CAM_DIST_MIN, CAM_DIST_MAX );
 	else if(key == '-')
-		pix_sz = max( pix_sz - 1, 1 );
+		modifyPixelSize(-1);
 	else if(key == '=')
-		pix_sz += 1;
+		modifyPixelSize(1);
+	else if(key == '[')
+		modifyRaytraceDepth(-1);
+	else if(key == ']')
+		modifyRaytraceDepth(1);
 
 	glutPostRedisplay();
 }
@@ -193,7 +214,7 @@ int main(int argc, char **argv) {
 
 	cout << "Scene created, contains " << scene->primitiveCount() << " objects." << endl;
 
-	scene->setRaytraceDepth(5);
+	scene->setRaytraceDepth(traceDepth);
 
 	// Ensure the window is an appropriate 4:3 size
 	glutInitWindowSize( 640, 480 );
